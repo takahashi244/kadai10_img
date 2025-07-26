@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>権限テスト - 高校生・大学生マッチング</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>権限テスト結果</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>修正内容の確認</h2>
+            
+            <div class="test-results">
+                <h3>✅ 修正完了項目:</h3>
+                <ul>
+                    <li><strong>index.php</strong>: レビュー一覧で編集・削除ボタンを権限チェック付きに変更</li>
+                    <li><strong>編集・削除権限</strong>: 
+                        <ul>
+                            <li>未ログインユーザー: ボタン非表示</li>
+                            <li>一般ユーザー: 自分のレビューのみボタン表示</li>
+                            <li>管理者: 全てのレビューでボタン表示</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3>🔧 テスト手順:</h3>
+                <ol>
+                    <li><a href="logout.php">ログアウト</a>して未ログイン状態で<a href="index.php">トップページ</a>を確認 → 編集・削除ボタンが表示されないことを確認</li>
+                    <li><a href="login.php">ログイン</a>で一般ユーザー（tanaka/password）でログイン</li>
+                    <li><a href="index.php">トップページ</a>で自分のレビューのみ編集・削除ボタンが表示されることを確認</li>
+                    <li><a href="my_reviews.php">マイレビューページ</a>で自分のレビューのみ表示されることを確認</li>
+                    <li><a href="logout.php">ログアウト</a>後、管理者（admin/password）でログイン</li>
+                    <li>管理者は全てのレビューで編集・削除ボタンが表示されることを確認</li>
+                </ol>
+
+                <h3>🔍 権限チェック関数の動作:</h3>
+                <div class="code-display">
+                    <pre>
+// index.php での権限チェック（修正後）
+if (isset($_SESSION['user_id'])) {
+    // ログイン済みの場合のみ編集・削除ボタンを表示
+    if (canEditReview($review['id'], $_SESSION['user_id'], $review['user_id'])) {
+        echo '編集・削除ボタン表示';
+    }
+}
+
+// canEditReview関数の動作:
+// - 管理者: 常にtrue
+// - 一般ユーザー: 自分のレビュー(user_id一致)のみtrue
+                    </pre>
+                </div>
+
+                <h3>📊 要件定義書適合状況:</h3>
+                <table border="1" style="margin: 20px 0; border-collapse: collapse;">
+                    <tr style="background: #f0f0f0;">
+                        <th style="padding: 10px;">要件項目</th>
+                        <th style="padding: 10px;">実装状況</th>
+                        <th style="padding: 10px;">確認方法</th>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">投稿者のみ編集・削除可能</td>
+                        <td style="padding: 10px; color: green;">✅ 完了</td>
+                        <td style="padding: 10px;">一般ユーザーでログインして確認</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">管理者は全レビュー管理可能</td>
+                        <td style="padding: 10px; color: green;">✅ 完了</td>
+                        <td style="padding: 10px;">管理者でログインして確認</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">未ログインユーザーは編集不可</td>
+                        <td style="padding: 10px; color: green;">✅ 完了</td>
+                        <td style="padding: 10px;">ログアウト状態で確認</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">マイレビューページ機能</td>
+                        <td style="padding: 10px; color: green;">✅ 完了</td>
+                        <td style="padding: 10px;">my_reviews.phpで確認</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section style="margin-top: 30px;">
+            <h2>テスト用リンク</h2>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="index.php" class="btn-primary">トップページ</a>
+                <a href="login.php" class="btn-primary">ログイン</a>
+                <a href="logout.php" class="btn-primary">ログアウト</a>
+                <a href="my_reviews.php" class="btn-primary">マイレビュー</a>
+                <a href="test_accounts.php" class="btn-primary">テストアカウント情報</a>
+                <a href="test_permissions.php" class="btn-primary">権限テスト詳細</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 高校生・大学生マッチングアプリ - 権限テスト完了</p>
+        </div>
+    </footer>
+</body>
+</html>

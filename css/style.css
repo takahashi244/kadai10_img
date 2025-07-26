@@ -1,0 +1,1072 @@
+/* 高校生・大学生マッチングアプリ CSS */
+/* 作成日: 2025年6月21日 */
+
+/* 基本設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ヘッダー */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header .subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* ヘッダー認証エリア */
+.header-auth {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.admin-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+}
+
+.auth-links {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.btn-login, .btn-register {
+    background: white;
+    color: #667eea;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+.btn-register {
+    background: #ffc107;
+    color: #333;
+    border-color: #ffc107;
+}
+
+.btn-logout, .btn-admin {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 0.3rem;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+/* メイン */
+main {
+    padding: 2rem 0;
+}
+
+/* セクション */
+section {
+    background: white;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+section h2 {
+    color: #667eea;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 0.5rem;
+}
+
+/* 検索フォーム */
+.search-form {
+    margin-top: 1rem;
+}
+
+.search-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: end;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group select,
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group select:focus,
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+/* ボタン */
+.btn-search,
+.btn-primary {
+    background: #667eea;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-search:hover,
+.btn-primary:hover {
+    background: #5a6fd8;
+}
+
+.btn-reset,
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-reset:hover,
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-post {
+    background: #28a745;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.btn-post:hover {
+    background: #218838;
+}
+
+.btn-table {
+    background: #6f42c1;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.btn-table:hover {
+    background: #5a359a;
+}
+
+/* アクションセクション */
+.action-section {
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Action section buttons */
+.btn-my-reviews {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin: 0 5px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-my-reviews:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+/* レビューカード */
+.review-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.3s;
+}
+
+.review-card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.review-header h3 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.student-info {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.student-info span {
+    background: #f8f9fa;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.university {
+    background: #e3f2fd !important;
+    color: #1976d2 !important;
+}
+
+.department {
+    background: #f3e5f5 !important;
+    color: #7b1fa2 !important;
+}
+
+.grade {
+    background: #e8f5e8 !important;
+    color: #388e3c !important;
+}
+
+/* 評価表示 */
+.review-ratings {
+    margin-bottom: 1rem;
+}
+
+.rating-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.avg-rating {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #667eea;
+}
+
+.stars {
+    color: #ffc107;
+    font-size: 1.2rem;
+}
+
+.rating-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.rating-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 3px solid #667eea;
+}
+
+.rating-label {
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.rating-value {
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-left: auto;
+}
+
+/* コメント */
+.review-comment {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #667eea;
+}
+
+.review-comment h4 {
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.review-comment p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* レビューフッター */
+.review-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+    flex-wrap: wrap;
+}
+
+.reviewer-info {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.reviewer-info span {
+    background: #f8f9fa;
+    padding: 0.25rem 0.5rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    color: #495057;
+}
+
+.reviewer-info .nickname {
+    background: #fff3cd !important;
+    color: #856404 !important;
+}
+
+.review-date {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* フォームセクション */
+.form-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    background: #fafbfc;
+}
+
+.form-section h3 {
+    color: #667eea;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+/* 評価フォーム */
+.rating-group {
+    margin-bottom: 1.5rem;
+}
+
+.rating-group label:first-child {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.rating-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.rating-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: all 0.3s;
+    min-width: 50px;
+    min-height: 40px;
+    width: 50px;
+    height: 40px;
+    position: relative;
+}
+
+.rating-option:hover {
+    background: #f8f9fa;
+    border-color: #667eea;
+}
+
+.rating-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+}
+
+.rating-option input[type="radio"]:checked + span {
+    color: white;
+    font-weight: normal;
+}
+
+/* 選択された評価ボタンのスタイル */
+.rating-option.selected {
+    background: #667eea;
+    border-color: #667eea;
+}
+
+.rating-option.selected span {
+    color: white;
+}
+
+/* 評価ボタンの数字を統一 */
+.rating-option span {
+    font-weight: normal;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+    line-height: 1;
+    pointer-events: none;
+}
+
+/* 必須マーク */
+.required {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* フォームアクション */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* メッセージ */
+.success-message {
+    background: #d4edda;
+    color: #155724;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #c3e6cb;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.success-message h2 {
+    color: #155724;
+    margin-bottom: 1rem;
+}
+
+.error-messages {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+    margin-bottom: 2rem;
+}
+
+.error-messages h3 {
+    color: #721c24;
+    margin-bottom: 1rem;
+}
+
+.error-messages ul {
+    margin-left: 1.5rem;
+}
+
+.no-results {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    padding: 2rem;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.no-results p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.error {
+    color: #dc3545;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* 編集・削除ボタン */
+.review-actions {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+
+.btn-edit, .btn-delete {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-left: 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* アラートボックス */
+.alert {
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert strong {
+    font-weight: 600;
+}
+
+/* 編集フォーム専用スタイル */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.student-display {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.student-info-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.student-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.student-info-display .university,
+.student-info-display .department,
+.student-info-display .grade {
+    background-color: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.form-text {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.875em;
+    color: #6c757d;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.btn-cancel {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #545b62;
+    color: white;
+}
+
+/* 認証フォーム */
+.auth-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #667eea;
+}
+
+.auth-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.auth-form small {
+    display: block;
+    margin-top: 0.3rem;
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.auth-links p {
+    margin: 0.5rem 0;
+}
+
+.auth-links a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+.test-accounts {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 0.3rem;
+    border-left: 4px solid #667eea;
+}
+
+.test-accounts h3 {
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.test-account {
+    margin: 0.8rem 0;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 0.3rem;
+    font-size: 0.9rem;
+}
+
+/* ユーザー管理 */
+.nav-section {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.btn-nav {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    text-decoration: none;
+    border-radius: 0.3rem;
+    margin: 0 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.btn-nav:hover {
+    background: #5a6fd8;
+}
+
+.users-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.user-meta-info {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 0.3rem;
+    border-left: 4px solid #667eea;
+}
+
+.user-meta-info h3 {
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.user-meta-info p {
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+/* ユーザー一覧テーブル */
+.users-table-container {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.users-table th,
+.users-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.users-table th {
+    background: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.users-table tr:hover {
+    background: #f8f9fa;
+}
+
+.users-table td:first-child {
+    text-align: center;
+}
+
+/* 権限表示 */
+.kanri-1 {
+    color: #dc3545;
+    font-weight: normal;
+}
+
+.kanri-0 {
+    color: #666;
+    font-weight: normal;
+}
+
+/* 状態表示 */
+.status-active {
+    color: #28a745;
+    font-weight: normal;
+}
+
+.status-inactive {
+    color: #dc3545;
+    font-weight: normal;
+}
+
+/* アクションボタン */
+.actions {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.btn-edit-small,
+.btn-delete-small,
+.btn-activate-small {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    margin: 0 0.2rem;
+    border-radius: 0.3rem;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.btn-edit-small {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.btn-edit-small:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.btn-delete-small {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+.btn-delete-small:hover {
+    background: #c82333;
+    border-color: #c82333;
+    transform: translateY(-1px);
+}
+
+.btn-activate-small {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.btn-activate-small:hover {
+    background: #218838;
+    border-color: #218838;
+    transform: translateY(-1px);
+}
+
+.self-user {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+
+/* フッター */
+footer {
+    background: #343a40;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+footer p {
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    header .container {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    
+    .header-auth {
+        justify-content: center;
+    }
+    
+    .auth-links {
+        flex-direction: column;
+        gap: 0.8rem;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .btn-login, .btn-register {
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .auth-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .users-table-container {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 1.5rem 0;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    section {
+        padding: 1rem;
+    }
+    
+    .review-card {
+        padding: 1rem;
+    }
+}

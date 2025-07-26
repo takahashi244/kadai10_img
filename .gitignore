@@ -1,0 +1,20 @@
+# さくらサーバーのDBアクセス情報を env.php にまとめて
+# それを gitignore でアップしないように管理しています
+# what is gitignore?
+# https://www-creators.com/archives/1662
+
+# データベース接続情報（秘匿情報）
+config/env.php
+
+# 環境設定ファイル
+*.env
+.env
+
+# その他の秘匿ファイル
+config/production.php
+config/secrets.php
+
+# 開発環境用
+.vscode/
+.idea/
+*.log
