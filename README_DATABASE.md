@@ -8,8 +8,8 @@
 
 - **レビュー一覧表示**: 大学生への面談レビューを一覧表示
 - **検索・絞り込み**: 大学名、学部、評価、投稿日で絞り込み検索
-- **レビュー投稿**: 面談後のレビューを投稿（話しやすさ、参考度、ワクワク度、時間正確性の4項目評価）
-- **データ一覧**: レビューデータをテーブル形式で確認、統計情報も表示
+- **レビュー投稿**: 面談後のレビューを投稿（話しやすさ、参考度、ワクワク度、時間正確性の4項目評価＋コメント＋画像投稿（jpg/jpeg/png/gif/bmp対応））
+- **データ一覧**: レビューデータをテーブル形式で確認、統計情報も表示、画像サムネイル表示・拡大表示
 - **環境別設定**: ローカル環境と本番環境で自動的にDB設定を切り替え
 
 ## 技術仕様
@@ -21,22 +21,23 @@
 
 ## ファイル構成
 
+
 ```
-kadai09_auth/
+kadai10_img/
 ├── index.php                    # メインページ（レビュー一覧・検索）
-├── post_review.php             # レビュー投稿ページ
-├── view_reviews_table.php      # データ一覧ページ
+├── post_review.php              # レビュー投稿ページ
+├── view_reviews_table.php       # データ一覧ページ
 ├── config/
-│   ├── database.php            # DB接続設定（環境判定機能付き）
-│   ├── env.example.php         # 本番環境設定のテンプレート
-│   └── env.php                 # 本番環境設定（GitHubには含まれません）
+│   ├── database.php             # DB接続設定（環境判定機能付き）
+│   ├── env.example.php          # 本番環境設定のテンプレート
+│   └── env.php                  # 本番環境設定（GitHubには含まれません）
 ├── css/
-│   └── style.css              # スタイルシート
+│   └── style.css                # スタイルシート
 ├── database/
-│   ├── create_database.sql    # テーブル作成SQL
-│   └── insert_dummy_data.sql  # 初期データ投入SQL
-├── .gitignore                 # Git除外設定
-└── README_DATABASE.md         # このファイル
+│   ├── create_database.sql      # テーブル作成SQL
+│   └── insert_dummy_data.sql    # 初期データ投入SQL
+├── .gitignore                  # Git除外設定
+└── README_DATABASE.md          # このファイル
 ```
 
 ## 環境別データベース設定
@@ -268,8 +269,18 @@ INSERT INTO reviews (student_id, reviewer_nickname, reviewer_school, reviewer_gr
 | excitement | INT | ワクワク度（1-5） |
 | punctuality | INT | 時間の正確性（1-5） |
 | comment | TEXT | コメント |
+| image | VARCHAR(255) | 画像ファイルパス（jpg/jpeg/png/gif/bmp）|
 | review_date | DATE | レビュー日 |
 | created_at | TIMESTAMP | 投稿日時 |
+## 画像投稿・編集・削除・表示機能の仕様
+
+- 投稿時に画像ファイル（jpg/jpeg/png/gif/bmp）をアップロード可能
+- 編集時は画像の変更・削除が可能（削除時はサーバーから物理削除）
+- 削除時はレビューと紐づく画像ファイルも削除
+- 一覧表示時はサムネイル表示、クリックで拡大（モーダルUI）
+- DBには画像ファイル名（相対パス）を保存
+- BMP形式も許可
+- セキュリティのためアップロード時はファイル名を一意化
 
 ## セキュリティ対策
 
