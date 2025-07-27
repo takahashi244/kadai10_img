@@ -94,6 +94,60 @@ if (!empty($errors)) {
 }
 
 try {
+    // 画像編集処理
+    $image_path = null;
+    // 既存画像パス取得
+    $img_stmt = $pdo->prepare("SELECT image FROM reviews WHERE id = :id");
+    $img_stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $img_stmt->execute();
+    $img_row = $img_stmt->fetch();
+    $old_image = $img_row ? $img_row['image'] : '';
+
+    $img_dir = __DIR__ . '/img';
+    if (!is_dir($img_dir)) {
+        mkdir($img_dir, 0777, true);
+    }
+
+    // 画像削除チェック
+    $delete_image = isset($_POST['image_delete']) && $_POST['image_delete'] == '1';
+
+    // 画像削除のみ（新画像アップロードなし）
+    if ($delete_image && (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK)) {
+        if (!empty($old_image) && file_exists(__DIR__ . '/' . $old_image)) {
+            unlink(__DIR__ . '/' . $old_image);
+        }
+        $image_path = null;
+    }
+    // 新画像アップロード
+    elseif (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $upload_file = $_FILES['image']['tmp_name'];
+        $extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+        if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'bmp'])) {
+            $new_name = uniqid('review_', true) . '.' . $extension;
+            $image_path = 'img/' . $new_name;
+            $save_path = $img_dir . '/' . $new_name;
+            if (move_uploaded_file($upload_file, $save_path)) {
+                // 古い画像削除
+                if (!empty($old_image) && file_exists(__DIR__ . '/' . $old_image)) {
+                    unlink(__DIR__ . '/' . $old_image);
+                }
+            } else {
+                $errors[] = '画像のアップロードに失敗しました。';
+            }
+        } else {
+            $errors[] = '画像ファイルはjpg/jpeg/png/gifのみ対応です。';
+        }
+    } else {
+        // 画像未変更
+        $image_path = $old_image;
+    }
+
+if (!empty($errors)) {
+    $error_message = implode("\n", $errors);
+    echo "<script>alert(" . json_encode('エラーが発生しました:\n' . $error_message) . ");history.back();</script>";
+    exit;
+}
+
     // データ更新SQL作成
     $sql = "UPDATE reviews SET 
                 student_id = :student_id,
@@ -105,9 +159,9 @@ try {
                 excitement = :excitement,
                 punctuality = :punctuality,
                 comment = :comment,
-                review_date = :review_date
+                review_date = :review_date,
+                image = :image
             WHERE id = :id";
-    
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
     $stmt->bindValue(':student_id', $student_id, PDO::PARAM_INT);
@@ -120,7 +174,7 @@ try {
     $stmt->bindValue(':punctuality', $punctuality, PDO::PARAM_INT);
     $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
     $stmt->bindValue(':review_date', $review_date, PDO::PARAM_STR);
-    
+    $stmt->bindValue(':image', $image_path, PDO::PARAM_STR);
     $status = $stmt->execute();
 
     // 処理結果

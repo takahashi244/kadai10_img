@@ -83,7 +83,7 @@ $gradeText = $review['grade'] == 5 ? '院生' : $review['grade'] . '年';
                 <strong>理由:</strong> データの整合性を保つため、レビューの対象大学生は編集できません。
             </div>
 
-            <form method="POST" action="update_review.php" class="review-form">
+            <form method="POST" action="update_review.php" class="review-form" enctype="multipart/form-data">
                 <!-- 対象大学生情報（編集不可） -->
                 <div class="form-section">
                     <h3>面談相手の大学生（変更不可）</h3>
@@ -183,6 +183,27 @@ $gradeText = $review['grade'] == 5 ? '院生' : $review['grade'] . '年';
                                 <?php endfor; ?>
                             </select>
                         </div>
+                    </div>
+                </div>
+
+
+                <!-- 画像編集 -->
+                <div class="form-section">
+                    <h3>画像</h3>
+                    <div class="form-group">
+                        <?php if (!empty($review['image'])): ?>
+                            <div class="current-image">
+                                <label>現在の画像:</label><br>
+                                <img src="<?= htmlspecialchars($review['image']) ?>" alt="レビュー画像" style="max-width:200px;max-height:200px;">
+                                <div class="form-group">
+                                    <label><input type="checkbox" name="image_delete" value="1"> 画像を削除する</label>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <label for="image">面談で参考になった資料画像や画面キャプチャ画像を投稿（任意）</label>
+                        <input type="file" name="image" id="image" accept="image/*">
+                        <!-- 新画像アップロード時のみ古い画像は自動削除されます -->
+                        <small>※画像ファイル（例：パワーポイント資料のスクリーンショット等）のみ投稿可能。対応形式：jpg/jpeg/png/gif/bmp。新しい画像を選択すると上書きされます。</small>
                     </div>
                 </div>
 

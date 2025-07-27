@@ -30,22 +30,18 @@ requireLogin();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $pdo = getDBConnection();
-                
                 // バリデーション
                 $errors = [];
-                
+                $image_path = '';
                 if (empty($_POST['student_id'])) {
                     $errors[] = '面談した大学生を選択してください。';
                 }
-                
                 if (empty($_POST['reviewer_school'])) {
                     $errors[] = '高校名を入力してください。';
                 }
-                
                 if (empty($_POST['reviewer_grade'])) {
                     $errors[] = '学年を選択してください。';
                 }
-                
                 $ratings = ['friendliness', 'helpfulness', 'excitement', 'punctuality'];
                 foreach ($ratings as $rating) {
                     if (empty($_POST[$rating]) || !in_array($_POST[$rating], ['1', '2', '3', '4', '5'])) {
@@ -53,9 +49,28 @@ requireLogin();
                         break;
                     }
                 }
-                
                 if (empty($_POST['review_date'])) {
                     $errors[] = 'レビュー日を入力してください。';
+                }
+                // 画像アップロード処理
+                if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                    // imgディレクトリがなければ作成
+                    $img_dir = __DIR__ . '/img';
+                    if (!is_dir($img_dir)) {
+                        mkdir($img_dir, 0777, true);
+                    }
+                    $upload_file = $_FILES['image']['tmp_name'];
+                    $extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+                    if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                        $new_name = uniqid('review_', true) . '.' . $extension;
+                        $image_path = 'img/' . $new_name;
+                        $save_path = $img_dir . '/' . $new_name;
+                        if (!move_uploaded_file($upload_file, $save_path)) {
+                            $errors[] = '画像のアップロードに失敗しました。';
+                        }
+                    } else {
+                        $errors[] = '画像ファイルはjpg/jpeg/png/gifのみ対応です。';
+                    }
                 }
                 
                 if (empty($errors)) {
@@ -63,9 +78,8 @@ requireLogin();
                     $sql = "INSERT INTO reviews (
                         student_id, reviewer_nickname, reviewer_school, reviewer_grade,
                         friendliness, helpfulness, excitement, punctuality,
-                        comment, review_date, user_id
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                    
+                        comment, review_date, user_id, image
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     $stmt = $pdo->prepare($sql);
                     $result = $stmt->execute([
                         $_POST['student_id'],
@@ -78,9 +92,9 @@ requireLogin();
                         $_POST['punctuality'],
                         !empty($_POST['comment']) ? $_POST['comment'] : null,
                         $_POST['review_date'],
-                        $_SESSION['user_id']
+                        $_SESSION['user_id'],
+                        $image_path
                     ]);
-                    
                     if ($result) {
                         echo '<div class="success-message">';
                         echo '<h2>レビューの投稿が完了しました！</h2>';
@@ -117,7 +131,7 @@ requireLogin();
         ?>
         
         <section class="post-form-section">
-            <form method="POST" action="post_review.php" class="review-form">
+            <form method="POST" action="post_review.php" class="review-form" enctype="multipart/form-data">
                 <!-- 面談した大学生選択 -->
                 <div class="form-group">
                     <label for="student_id">面談した大学生 <span class="required">*</span></label>
@@ -227,10 +241,18 @@ requireLogin();
                 </div>
 
                 <!-- コメント -->
+
                 <div class="form-group">
                     <label for="comment">コメント</label>
                     <textarea name="comment" id="comment" rows="5" 
                               placeholder="面談の感想や他の高校生へのアドバイスなど（任意）"><?= isset($_POST['comment']) ? htmlspecialchars($_POST['comment']) : '' ?></textarea>
+                </div>
+
+                <!-- 画像アップロード -->
+                <div class="form-group">
+                    <label for="image">面談で参考になった資料画像や画面キャプチャ画像を投稿（任意）</label>
+                    <input type="file" name="image" id="image" accept="image/*">
+                    <small>※画像ファイル（例：パワーポイント資料のスクリーンショット等）のみ投稿可能。対応形式：jpg/jpeg/png/gif/bmp</small>
                 </div>
 
                 <!-- レビュー日 -->

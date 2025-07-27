@@ -188,6 +188,7 @@ if (!isAdmin()) {
                 echo '<thead>';
                 echo '<tr>';
                 echo '<th>ID</th>';
+                echo '<th>画像</th>';
                 echo '<th>大学生情報</th>';
                 echo '<th>投稿者情報</th>';
                 echo '<th>話しやすさ</th>';
@@ -210,6 +211,15 @@ if (!isAdmin()) {
                     
                     echo '<tr>';
                     echo "<td>{$review['id']}</td>";
+                    
+                    // 画像サムネイル
+                    echo '<td style="text-align:center;">';
+                    if (!empty($review['image'])) {
+                        echo '<img src="' . htmlspecialchars($review['image']) . '" alt="画像" style="max-width:80px;max-height:80px;">';
+                    } else {
+                        echo '<span style=\'color:#999;\'>なし</span>';
+                    }
+                    echo '</td>';
                     
                     // 大学生情報
                     echo '<td>';

@@ -200,8 +200,13 @@ require_once 'includes/auth_functions.php';
                         $avgRating = round($review['avg_rating'], 1);
                         
                         echo '<div class="review-card">';
+
                         echo '<div class="review-header">';
                         echo "<h3>{$review['name']} さん</h3>";
+                        // 画像サムネイル表示
+                        if (!empty($review['image'])) {
+                            echo '<div class="review-image"><img src="' . htmlspecialchars($review['image']) . '" alt="画像" class="review-thumbnail" style="max-width:180px;max-height:180px;border-radius:8px;margin-bottom:8px;cursor:pointer;"></div>';
+                        }
                         echo "<div class=\"student-info\">";
                         echo "<span class=\"university\">{$review['university']}</span>";
                         echo "<span class=\"department\">{$review['department']}</span>";
@@ -285,6 +290,11 @@ require_once 'includes/auth_functions.php';
         </div>
     </footer>
 
+    <!-- 画像拡大モーダル -->
+    <div id="img-modal" style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+        <img id="modal-img" src="" alt="拡大画像" style="max-width:90vw;max-height:90vh;border-radius:10px;box-shadow:0 0 20px #000;">
+    </div>
+
     <script>
         // 削除確認ダイアログ
         function confirmDelete(reviewId) {
@@ -292,6 +302,26 @@ require_once 'includes/auth_functions.php';
                 location.href = 'delete_review.php?id=' + reviewId;
             }
         }
+
+        // 画像クリックで拡大表示
+        document.addEventListener('DOMContentLoaded', function() {
+            const thumbnails = document.querySelectorAll('.review-thumbnail');
+            const modal = document.getElementById('img-modal');
+            const modalImg = document.getElementById('modal-img');
+            thumbnails.forEach(function(img) {
+                img.addEventListener('click', function() {
+                    modalImg.src = img.src;
+                    modal.style.display = 'flex';
+                });
+            });
+            modal.addEventListener('click', function(e) {
+                // 背景または画像クリックで閉じる
+                if (e.target === modal || e.target === modalImg) {
+                    modal.style.display = 'none';
+                    modalImg.src = '';
+                }
+            });
+        });
     </script>
 </body>
 </html>

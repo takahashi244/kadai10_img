@@ -41,6 +41,16 @@ try {
         exit;
     }
 
+    // 画像ファイル削除処理
+    $img_stmt = $pdo->prepare("SELECT image FROM reviews WHERE id = :id");
+    $img_stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $img_stmt->execute();
+    $img_row = $img_stmt->fetch();
+    $image_path = $img_row ? $img_row['image'] : '';
+    if (!empty($image_path) && file_exists(__DIR__ . '/' . $image_path)) {
+        unlink(__DIR__ . '/' . $image_path);
+    }
+
     // データ削除SQL実行
     $delete_sql = "DELETE FROM reviews WHERE id = :id";
     $delete_stmt = $pdo->prepare($delete_sql);

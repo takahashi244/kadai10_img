@@ -119,6 +119,10 @@ requireLogin();
                         echo '<div class="review-card">';
                         echo '<div class="review-header">';
                         echo '<h3>' . htmlspecialchars($review['student_name']) . ' さんのレビュー</h3>';
+                        // 画像サムネイル表示
+                        if (!empty($review['image'])) {
+                            echo '<div class="review-image"><img src="' . htmlspecialchars($review['image']) . '" alt="画像" style="max-width:180px;max-height:180px;border-radius:8px;margin-bottom:8px;"></div>';
+                        }
                         echo '<div class="student-info">';
                         echo '<span class="university">' . htmlspecialchars($review['university']) . '</span>';
                         echo '<span class="department">' . htmlspecialchars($review['department']) . '</span>';
